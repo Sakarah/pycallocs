@@ -173,6 +173,7 @@ static int funproxytype_setup(FunctionProxyTypeObject *self)
     for (int i = 0 ; i < narg ; ++i)
     {
         const struct uniqtype *arg_type = type->related[i+1].un.t.ptr;
+        if (UNIQTYPE_KIND(arg_type) == ENUMERATION) arg_type = &__uniqtype__int; // HACK HACK HCAK
         ffi_arg_types[i] = ffi_type_for_uniqtype(arg_type);
         self->ff_argtypes[i] = ForeignType_GetOrCreate(arg_type);
         if (!ffi_arg_types[i] || !self->ff_argtypes[i])

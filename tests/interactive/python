@@ -1,0 +1,4 @@
+#!/bin/bash
+
+. ../../venv/bin/activate
+LD_PRELOAD=../../../libcrunch/lib/libcrunch_preload.so python $*

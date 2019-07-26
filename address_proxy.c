@@ -286,6 +286,9 @@ static bool addrproxy_typecheck(PyObject *obj, ForeignTypeObject *type)
     // Check if obj is an address proxy object with the exact same pointee type
     if (PyObject_TypeCheck(obj, (PyTypeObject *) proxy_type)) return true;
 
+    // FIXME HACKY HACK: REMOVE THE NEXT LINE PLZ ! Here just to override a duplication of uniqtypes problem
+    if (strcmp(obj->ob_type->tp_name, proxy_type->tp_base.tp_name) == 0) return true;
+
     // Check if obj is a proxy to the pointee type (or a "parent" object of it)
     PyTypeObject *pointee_proxy = proxy_type->pointee_type->ft_proxy_type;
     if (pointee_proxy && PyObject_TypeCheck(obj, pointee_proxy))
